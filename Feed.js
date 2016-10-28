@@ -28,7 +28,8 @@ class Feed extends React.Component{
     }
 
     onNewItem(newItem) {
-        alert(newItem);
+        console.log(newItem);
+        console.log(this);
          var newItems = this.state.items.concat([newItem]);
         this.setState({
             items: newItems,
