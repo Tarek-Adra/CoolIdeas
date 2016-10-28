@@ -20,15 +20,13 @@ class FeedForm extends React.Component{
     }
 
     handleForm(e) {
-        console.log(this.state.title);
-
         var newItem = {
             title:  this.state.title,
             description:  this.state.desc,
             voteCount: 0
         };
         this.clearForm();
-        this.props.onNewItem(newItem).bind(this);
+        this.props.onNewItem(newItem);
     }
 
 
@@ -49,7 +47,7 @@ class FeedForm extends React.Component{
                 <div className="form-group">
                     <input onChange={this.titleChange} type="text" className="form-control" placeholder="Title" />
                     <input onChange={this.descChange} type="text" className="form-control" placeholder="Description" />
-                    <button type="button" className="btn btn-primary btn-block" onClick={this.handleForm.bind(this)}>Add</button>
+                    <button type="button" className="btn btn-primary btn-block" onClick={this.handleForm}>Add</button>
                 </div>
             </div>
         );
