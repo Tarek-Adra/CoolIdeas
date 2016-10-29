@@ -1,24 +1,37 @@
-.App {
-  text-align: center;
+body {
+  background: #FAFAFA;
+}
+.badge-success {
+  background: #5cb85c;
+}
+.badge-danger {
+  background: #d9534f;
+}
+.list-group-item {
+  padding: 20px 15px;
+}
+.form-control, .btn, .badge {
+  border-radius: 0;
+}
+#feedForm {
+  display: none;
+}
+.list-group-item{
+  min-height: 95px;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.btn-up{
+  margin-right: 10px;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+.badge-danger{
+  background-color: #e63a3a !important;
 }
-
-.App-intro {
-  font-size: large;
+.list-group{
+  padding: 20px !important;
 }
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.spacer20{
+  display: block;
+  height: 20px;
+  clear: both;
 }

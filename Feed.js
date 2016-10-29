@@ -3,22 +3,59 @@ import ShowAddButton from './ShowAddButton.js';
 import FeedForm from './FeedForm.js';
 import FeedList from './FeedList.js';
 import _ from 'lodash';
+import Firebase  from 'firebase';
+
+var config = {
+    apiKey: "AIzaSyBYL_4Uw_ZBFBeBSYzgaeRkq1d5L0Pp4Jg",
+    authDomain: "cool-ideas.firebaseapp.com",
+    databaseURL: "https://cool-ideas.firebaseio.com",
+    storageBucket: "cool-ideas.appspot.com",
+    messagingSenderId: "516219147724"
+};
+var appFirebase = Firebase.initializeApp(config);
 
 class Feed extends React.Component{
     constructor(props) {
         super(props);
         this.onNewItem = this.onNewItem.bind(this);
         this.onVote = this.onVote.bind(this);
+        this.loadData = this.loadData.bind(this);
+
 
         this.state = {
-			items: [
-                    {key:'1', title: 'hiii there', description: 'asd asldk aksjdl jaskl jklja slkj', voteCount: 49},
-                    {key:'2', title: '222 there', description: '2222 asldk aksjdl jaskl jklja slkj', voteCount: 2},
-                    {key:'3', title: '333 there', description: '33333 asldk aksjdl jaskl jklja slkj', voteCount: 43}
-                    ],
+			items: [],
             formDisplayed: true
         };
     }
+
+
+        loadData(){
+        var ref = Firebase.database().ref('feed');
+        ref.on('value', function (snapshot) {
+           var DataFirebase = snapshot.val();
+            var items = [];
+            var sorted = [];
+
+            Object.keys(DataFirebase).forEach(function (k) {
+                var item = DataFirebase[k];
+                console.log(DataFirebase[k]);
+                item.key = k;
+                items.push(item);
+            });
+
+            sorted = _.sortBy(items, function (item) {
+                return -item.voteCount;
+            });
+
+            this.setState({
+                items: sorted
+            });
+        }.bind(this));
+    }
+
+    componentDidMount() {
+            this.loadData();
+        }
 
     onToggleForm() {
         this.setState({
@@ -28,28 +65,12 @@ class Feed extends React.Component{
     }
 
     onNewItem(newItem) {
-        newItem.key = this.state.items.length+1;
-         var newItems = this.state.items.concat([newItem]);
-        this.setState({
-            items: newItems,
-            formDisplayed:false,
-            key: this.state.items.length
-        });
+        Firebase.database().ref('feed').push(newItem);
     }
 
     onVote(item) {
-        var items = _.uniq(this.state.items);
-                var index = _.findIndex(items, function (feedItems) {
-                        return feedItems.key === item.key;
-                    });
-                console.log(index);
-                var oldObject = items[index];
-                var newItems = _.pull(items, oldObject);
-                newItems.push(item);
-                newItems =  _.orderBy(newItems, ['voteCount'], ['desc']);
-                this.setState({
-                        items: newItems
-                });
+        var ref =  Firebase.database().ref('feed').child(item.key);
+        ref.update(item);
     }
 
     render(){

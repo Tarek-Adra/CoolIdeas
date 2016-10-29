@@ -7,10 +7,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        
-          
-          <Feed />
- 
+			<h2 className="text-center">Cool Ideas</h2>
+			<p className="text-center">You Can Vote or Add New Ideas and check top Ideas!!</p>
+           <Feed />
       </div>
     );
   }

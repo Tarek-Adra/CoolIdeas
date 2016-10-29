@@ -51,8 +51,13 @@ class FeedForm extends React.Component{
                 <div className="form-group">
                     <input  onChange={this.titleChange} value={this.state.title} type="text" className="form-control" placeholder="Title" />
                     <input  onChange={this.descChange}  value={this.state.desc} type="text" className="form-control" placeholder="Description" />
-                    <button type="button" className="btn btn-primary btn-block" onClick={this.handleForm}>Add</button>
-                    <button type="button" className="btn btn-primary btn-block" onClick={this.clearForm}>Clear</button>
+                    <div className="spacer20"></div>
+                   <div className="col-xs-6 ">
+                    <button type="button" className="btn btn-success btn-block" onClick={this.handleForm}>Add</button>
+                   </div>
+                    <div className="col-xs-6">
+                     <button type="button" className="btn btn-primary btn-block" onClick={this.clearForm}>Clear</button>
+                    </div>
                 </div>
             </div>
         );

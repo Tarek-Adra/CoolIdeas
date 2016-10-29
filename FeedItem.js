@@ -38,8 +38,8 @@ class FeedItem extends React.Component{
                 <h4>{this.props.title} </h4>
                 <span>{this.props.description}</span>
                 <span className="pull-right">
-                <button id="up" className="btn btn-sm btn-primary" onClick={this.voteUp}>&uarr;</button>
-                <button id="down" className="btn btn-sm btn-primary" onClick={this.voteDown}>&darr;</button>
+                <button id="up" className="btn-up btn btn-sm btn-success" onClick={this.voteUp}>&uarr;</button>
+                <button id="down" className="btn-down btn btn-sm btn-danger" onClick={this.voteDown}>&darr;</button>
                 </span>
             </li>
         )
