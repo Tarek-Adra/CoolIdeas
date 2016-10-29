@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import ShowAddButton from './ShowAddButton.js';
 import FeedForm from './FeedForm.js';
 import FeedList from './FeedList.js';
+import _ from 'lodash';
 
 class Feed extends React.Component{
     constructor(props) {
         super(props);
         this.onNewItem = this.onNewItem.bind(this);
+        this.onVote = this.onVote.bind(this);
+
         this.state = {
 			items: [
                     {key:'1', title: 'hiii there', description: 'asd asldk aksjdl jaskl jklja slkj', voteCount: 49},
@@ -17,7 +20,6 @@ class Feed extends React.Component{
         };
     }
 
-
     onToggleForm() {
         this.setState({
             items:this.state.items,
@@ -26,10 +28,7 @@ class Feed extends React.Component{
     }
 
     onNewItem(newItem) {
-        console.log(newItem);
-
         newItem.key = this.state.items.length+1;
-        console.log(newItem);
          var newItems = this.state.items.concat([newItem]);
         this.setState({
             items: newItems,
@@ -39,8 +38,18 @@ class Feed extends React.Component{
     }
 
     onVote(item) {
-         console.log('on Vote ');
-        console.log(item);
+        var items = _.uniq(this.state.items);
+                var index = _.findIndex(items, function (feedItems) {
+                        return feedItems.key === item.key;
+                    });
+                console.log(index);
+                var oldObject = items[index];
+                var newItems = _.pull(items, oldObject);
+                newItems.push(item);
+                newItems =  _.orderBy(newItems, ['voteCount'], ['desc']);
+                this.setState({
+                        items: newItems
+                });
     }
 
     render(){
@@ -49,7 +58,6 @@ class Feed extends React.Component{
                 <div className="container">
                    <ShowAddButton displayed={this.state.formDisplayed} onToggleForm={this.onToggleForm.bind(this)} />
                 </div>
-
 
                 <FeedForm  displayed={this.state.formDisplayed}   onNewItem={this.onNewItem}  />
                 <br/>

@@ -8,6 +8,8 @@ class FeedForm extends React.Component{
         this.titleChange = this.titleChange.bind(this);
         this.descChange = this.descChange.bind(this);
         this.handleForm = this.handleForm.bind(this);
+        this.clearForm = this.clearForm.bind(this);
+
     }
 
 
@@ -25,15 +27,17 @@ class FeedForm extends React.Component{
             description:  this.state.desc,
             voteCount: 0
         };
+
         this.clearForm();
+
         this.props.onNewItem(newItem);
     }
 
 
     clearForm() {
             this.setState({
-                title: "",
-                desc: ""
+                title: '',
+                desc: ''
             });
         }
 
@@ -45,9 +49,10 @@ class FeedForm extends React.Component{
         return (
             <div ref="feedForm" style={styles} id="feedForm" className="container" >
                 <div className="form-group">
-                    <input onChange={this.titleChange} type="text" className="form-control" placeholder="Title" />
-                    <input onChange={this.descChange} type="text" className="form-control" placeholder="Description" />
+                    <input  onChange={this.titleChange} value={this.state.title} type="text" className="form-control" placeholder="Title" />
+                    <input  onChange={this.descChange}  value={this.state.desc} type="text" className="form-control" placeholder="Description" />
                     <button type="button" className="btn btn-primary btn-block" onClick={this.handleForm}>Add</button>
+                    <button type="button" className="btn btn-primary btn-block" onClick={this.clearForm}>Clear</button>
                 </div>
             </div>
         );

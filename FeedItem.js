@@ -2,9 +2,17 @@ import React, { Component } from 'react';
 
 class FeedItem extends React.Component{
 
+    constructor(props) {
+        super(props);
+
+        this.vote = this.vote.bind(this);
+        this.voteUp = this.voteUp.bind(this);
+        this.voteDown = this.voteDown.bind(this);
+    }
+
 	vote(newCount){
         this.props.onVote({
-            key: this.props.key,
+            key: this.props.keyx,
             title: this.props.title,
             description: this.props.description,
             voteCount: newCount
@@ -25,9 +33,9 @@ class FeedItem extends React.Component{
 		
 		 var badgeClassName = this.props.voteCount < 0 ? 'badge badge-danger' : 'badge badge-success';
         return (
-            <li key={this.props.key} className="list-group-item">
+            <li key={this.props.keyx} className="list-group-item">
                 <span className={badgeClassName}>{this.props.voteCount}</span>
-                <h4>{this.props.title}</h4>
+                <h4>{this.props.title} </h4>
                 <span>{this.props.description}</span>
                 <span className="pull-right">
                 <button id="up" className="btn btn-sm btn-primary" onClick={this.voteUp}>&uarr;</button>
